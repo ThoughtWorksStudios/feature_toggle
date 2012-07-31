@@ -20,10 +20,24 @@ class FeatureToggleTest < Test::Unit::TestCase
     assert !features.active?('rao')
   end
 
+  def test_activate_feature_after_deactivated_feature
+    features = load_features
+    features.deactivate("user_profile")
+    features.activate("user_profile")
+    assert features.active?('user_profile')
+  end
+
   def test_disabling_non_existent_features_should_raise_error
     features = load_features
     assert_raises FeatureToggle::UnknownFeatureError do
       features.deactivate("user")
+    end
+  end
+
+  def test_activating_non_existent_features_should_raise_error
+    features = load_features
+    assert_raises FeatureToggle::UnknownFeatureError do
+      features.activate("user")
     end
   end
 
