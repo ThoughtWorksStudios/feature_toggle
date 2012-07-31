@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.homepage = %q{https://github.com/ThoughtWorksStudios/feature_toggle}
   s.require_paths = ["lib"]
   s.summary = "Feature Toggle library for ruby"
-  s.files = FileList["{lib,test}/**/*"].exclude("rdoc").to_a + ["Rakefile", "Gemfile", "README.md", "CHANGELOG.md"]
+  s.files = FileList["{lib,test}/**/*"].exclude("rdoc").to_a + ["Rakefile", "README.md", "CHANGELOG.md"]
 end
