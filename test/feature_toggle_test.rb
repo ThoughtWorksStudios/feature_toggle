@@ -1,8 +1,8 @@
 require "test/unit"
 
-require "feature"
+require "feature_toggle"
 
-class FeatureTest < Test::Unit::TestCase
+class FeatureToggleTest < Test::Unit::TestCase
   def test_load_features
     features = load_features
     assert_equal({'users' => ['update', 'show']}, features['user_profile'])
@@ -22,7 +22,7 @@ class FeatureTest < Test::Unit::TestCase
 
   def test_disabling_non_existent_features_should_raise_error
     features = load_features
-    assert_raises Feature::UnknownFeatureError do
+    assert_raises FeatureToggle::UnknownFeatureError do
       features.disable("user")
     end
   end
@@ -41,6 +41,6 @@ class FeatureTest < Test::Unit::TestCase
 
   def load_features
     config = File.join(File.dirname(__FILE__), 'features.yml')
-    Feature.load(config)
+    FeatureToggle.load(config)
   end
 end

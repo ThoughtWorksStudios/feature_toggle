@@ -1,11 +1,11 @@
 require 'yaml'
-require 'feature/base'
-module Feature
+require 'feature_toggle/features'
+module FeatureToggle
   class UnknownFeatureError < StandardError
   end
 
   def load(config_file)
-    Base.new YAML.load(File.read(config_file))
+    Features.new YAML.load(File.read(config_file))
   end
   module_function :load
 end

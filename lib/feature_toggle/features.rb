@@ -1,6 +1,6 @@
 require 'set'
-module Feature
-  class Base
+module FeatureToggle
+  class Features
     def initialize(features)
       @features = features
       @actions = build_actions_feature_map(features)
