@@ -1,0 +1,11 @@
+user_profile:
+  users:
+    - update
+    - show
+wpc:
+  body:
+    - move
+    - jump
+rao:
+  hand:
+    - wave
