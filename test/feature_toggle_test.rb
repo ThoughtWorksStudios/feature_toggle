@@ -8,35 +8,35 @@ class FeatureToggleTest < Test::Unit::TestCase
     assert_equal({'users' => ['update', 'show']}, features['user_profile'])
   end
 
-  def test_can_disable_features
+  def test_can_deactivate_features
     features = load_features
-    assert !features.disabled?('user_profile')
+    assert features.active?('user_profile')
 
-    features.disable("user_profile")
-    assert features.disabled?('user_profile')
+    features.deactivate("user_profile")
+    assert !features.active?('user_profile')
 
-    features.disable("wpc", "rao")
-    assert features.disabled?('wpc')
-    assert features.disabled?('rao')
+    features.deactivate("wpc", "rao")
+    assert !features.active?('wpc')
+    assert !features.active?('rao')
   end
 
   def test_disabling_non_existent_features_should_raise_error
     features = load_features
     assert_raises FeatureToggle::UnknownFeatureError do
-      features.disable("user")
+      features.deactivate("user")
     end
   end
 
-  def test_feature_actions_should_be_disabled_when_feature_is_disabled
+  def test_feature_actions_should_be_active_when_feature_is_active
     features = load_features
-    assert !features.disabled_action?('users', 'update')
-    features.disable("user_profile")
-    assert features.disabled_action?('users', 'update')
+    assert features.active_action?('users', 'update')
+    features.deactivate("user_profile")
+    assert !features.active_action?('users', 'update')
   end
 
-  def test_feature_action_should_not_be_disabled_when_no_feature_defines_the_action
+  def test_feature_action_should_be_active_when_no_feature_defines_the_action
     features = load_features
-    assert !features.disabled_action?('users', 'destroy')
+    assert features.active_action?('users', 'destroy')
   end
 
   def load_features

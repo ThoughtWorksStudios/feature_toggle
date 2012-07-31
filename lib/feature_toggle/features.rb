@@ -4,27 +4,27 @@ module FeatureToggle
     def initialize(features)
       @features = features
       @actions = build_actions_feature_map(features)
-      @disabled_features = Set.new
+      @deactivated_features = Set.new
     end
 
     def [](feature_name)
       @features[feature_name]
     end
     
-    def disable(*feature_names)
+    def deactivate(*feature_names)
       feature_names.each do |feature_name|
         raise UnknownFeatureError, "Unknown feature name: #{feature_name}" unless @features.has_key?(feature_name)
-        @disabled_features << feature_name
+        @deactivated_features << feature_name
       end
     end
 
-    def disabled_action?(controller, action)
+    def active_action?(controller, action)
       feature = @actions["#{controller}:#{action}"]
-      disabled?(feature)
+      active?(feature)
     end
 
-    def disabled?(feature_name)
-      @disabled_features.include? feature_name
+    def active?(feature_name)
+      !@deactivated_features.include?(feature_name)
     end
 
     private
