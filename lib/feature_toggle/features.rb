@@ -13,15 +13,13 @@ module FeatureToggle
 
     def activate(*feature_names)
       feature_names.each do |feature_name|
-        validate!(feature_name)
-        @deactivated_features.delete(feature_name)
+        @deactivated_features.delete(feature_name) if valid?(feature_name)
       end
     end
 
     def deactivate(*feature_names)
       feature_names.each do |feature_name|
-        validate!(feature_name)
-        @deactivated_features << feature_name
+        @deactivated_features << feature_name if valid?(feature_name)
       end
     end
 
@@ -35,9 +33,13 @@ module FeatureToggle
     end
 
     private
-    def validate!(feature_name)
-      raise UnknownFeatureError, "Unknown feature name: #{feature_name}" unless @features.has_key?(feature_name)
+
+    def valid?(feature_name)
+      @features.has_key?(feature_name).tap do |exists|
+        puts "Unknown feature: #{feature_name}" unless exists
+      end
     end
+
     def build_actions_feature_map(features)
       map = {}
       features.each do |feature, controllers|
