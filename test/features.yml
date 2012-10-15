@@ -9,3 +9,6 @@ wpc:
 rao:
   hand:
     - wave
+xli:
+  foot:
+    - '*'

@@ -24,7 +24,7 @@ module FeatureToggle
     end
 
     def active_action?(controller, action)
-      feature = @actions["#{controller}:#{action}"]
+      feature = @actions["#{controller}:#{action}"] || @actions["#{controller}:*"]
       active?(feature)
     end
 

@@ -2,7 +2,7 @@ require 'rake/gempackagetask'
 
 Gem::Specification.new do |s|
   s.name = "feature_toggle"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.authors = ["Mingle SaaS team"]
   s.email = %q{mingle.saas@thoughtworks.com}

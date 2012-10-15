@@ -45,6 +45,17 @@ class FeatureToggleTest < Test::Unit::TestCase
     assert features.active_action?('users', 'destroy')
   end
 
+  def test_deactivate_all_actions_in_controller_for_feature_with_asterisk
+    features = load_features
+    assert features.active_action?('foot', 'kick')
+    assert features.active_action?('foot', 'anything')
+
+    features.deactivate("xli")
+
+    assert !features.active_action?('foot', 'kick')
+    assert !features.active_action?('foot', 'anything')
+  end
+
   def load_features
     config = File.join(File.dirname(__FILE__), 'features.yml')
     FeatureToggle.load(config)
